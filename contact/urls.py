@@ -7,7 +7,10 @@ from django.conf import settings
 urlpatterns = [
     path('', views.contactHome,name='contacts'),
     path('search/', views.search,name='search'),
-    path('<int:contact_id>/', views.contactDetails,name='contact'),
+    path('contact/<int:contact_id>/detail/', views.contactDetails,name='contact'),
+    path('contact/create/', views.create,name='create'),
+
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

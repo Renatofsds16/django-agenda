@@ -3,6 +3,15 @@ from .models import Contact,Category
 from django.http import Http404
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django import forms
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = 'first_name','last_name','phone','email','description',
+
+
 
 # Create your views here.
 def contactHome(request):
@@ -42,3 +51,15 @@ def search(request):
     page_obj = paginator.get_page(page_number)
     context = {'page_obj':page_obj,'site_title':'contatos - '}
     return render(request,'contact\index.html',context)
+
+
+def create(request):
+    if request.method == 'POST':
+        print(request.method)
+        context = {'form':ContactForm(data=request.POST)}
+        return render(request,'contact\create.html',context)
+    
+    context = {'form':ContactForm()}
+    return render(request,'contact\create.html',context)
+    
+    
