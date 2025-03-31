@@ -6,6 +6,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.contactHome,name='contacts'),
+    path('search/', views.search,name='search'),
+    path('<int:contact_id>/', views.contactDetails,name='contact'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

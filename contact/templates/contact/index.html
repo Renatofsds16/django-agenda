@@ -1,6 +1,7 @@
 {% extends "global\base.html" %}
 {% block content %}
     <div class="responsive_table">
+        {% if page_obj %}
         <table class="contacts-table">
             <caption class="table-caption">
                 Contacts
@@ -14,10 +15,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for contact in contacts %}
+
+                {% for contact in page_obj %}
                     <tr class="table-row">
                         <td class="table-cel">
-                            <a href="#" class="table-link">{{contact.id}}</a>
+                            <a href="{% url "contact" contact.id %}" class="table-link">{{contact.id}}</a>
                         </td>
                         <td class="table-cel">
                             {{contact.first_name}}
@@ -38,6 +40,14 @@
             </tbody>
 
         </table>
+        {% else %}
+        <div class="single-contact">
+            <h1 class="single-contact-name">
+                Nenhum contato encontrado.
+            </h1>
+        </div>
+        {% endif %}
+        
 
     </div>
 {% endblock content %}
