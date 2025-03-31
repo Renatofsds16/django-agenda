@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from .models import Contact,Category
 
 # Create your views here.
 def contactHome(request):
-    return render(request,'contact\index.html')
+    contacts = Contact.objects.all()
+    category = Category.objects.all()
+    context = {'contacts':contacts,'categories':category}
+    return render(request,'contact\index.html',context)
