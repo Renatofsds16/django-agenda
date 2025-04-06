@@ -14,16 +14,18 @@
             <p><img src="{{contact.picture.url}}" alt="{{contact.first_name}} {{contact.last_name}}"></p>
        {% endif %}
     </div>
-    <div class="contact-links">
-        <a class="btn-link btn" href="{% url "update" contact.id  %}">Update</a>
-        <form action="{% url "delete" contact.id %}" method="POST">
-            {% csrf_token %}
-            {% if confirmation == 'no' %}
-                <input type="hidden" name="confirmation" value="yes">
-                <button class="btn-link btn btn-delete" type="submit">Confirm?</button>
-                {% else %}
-                <button class="btn-link btn btn-delete" type="submit">Delete</button>
-            {% endif %}
-        </form>
-    </div>
+    {% if user == contact.owner %}
+        <div class="contact-links">
+            <a class="btn-link btn" href="{% url "update" contact.id  %}">Update</a>
+            <form action="{% url "delete" contact.id %}" method="POST">
+                {% csrf_token %}
+                {% if confirmation == 'no' %}
+                    <input type="hidden" name="confirmation" value="yes">
+                    <button class="btn-link btn btn-delete" type="submit">Confirm?</button>
+                    {% else %}
+                    <button class="btn-link btn btn-delete" type="submit">Delete</button>
+                {% endif %}
+            </form>
+        </div>
+    {% endif %}
 {% endblock content %}
